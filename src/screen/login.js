@@ -11,6 +11,10 @@ class Login extends Component{
         }
     }
 
+    registro(){
+        this.props.screenprops.navigation.navigate("Register")
+    }
+
     render(){
         return(
         <View style={styles.container}>
@@ -35,6 +39,10 @@ class Login extends Component{
 
                 <TouchableOpacity style={styles.touchable} onPress={()=> this.props.loguearse(this.state.email, this.state.pasword)}>
                     <Text style={styles.texto}>Loguearse</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity  onPress={()=> this.registro()}>
+                    <Text style={styles.texto2}>¿No tenes Cuenta? Registrate</Text>
                 </TouchableOpacity>
 
 
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
         color:"#FFF"
     },
     input: {
-        height: 20,
+        height: 40,
         borderWidth:1,
         borderStyle:"solid",
         borderColor: "#ccc",
@@ -78,7 +86,12 @@ const styles = StyleSheet.create({
     },
     textoerror: {
         color: "red"
-    }
+    },
+    texto2:{
+        color:"black",
+        textAlign:"center"
+
+    },
 })
 
 export default Login

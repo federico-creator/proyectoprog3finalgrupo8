@@ -11,6 +11,9 @@ class Register extends Component{
             pasword: "",
         }
     }
+    login(){
+        this.props.screenprops.navigation.navigate("Login")
+    }
 
     render(){
         return(
@@ -42,6 +45,10 @@ class Register extends Component{
 
                 <TouchableOpacity style={styles.touchable}  onPress={()=> this.props.registrarse(this.state.email,this.state.pasword)}>
                     <Text style={styles.texto}>Registrarse</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity  onPress={()=> this.login()}>
+                    <Text style={styles.texto2}>¿Ya tenes Cuenta? Logueate</Text>
                 </TouchableOpacity>
 
 
@@ -85,6 +92,11 @@ const styles = StyleSheet.create({
     },
     textoerror: {
         color: "red"
+    },
+    texto2:{
+        color:"black",
+        textAlign:"center"
+
     }
 })
 

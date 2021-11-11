@@ -6,6 +6,7 @@ import Home from '../screen/Home';
 import Register from '../screen/Register';
 import Login from '../screen/Login';
 import Perfil from '../screen/Perfil';
+import BusquedaPerfil from '../screen/BusquedaPerfil';
 import {auth} from "../firebase/config"
 
 
@@ -65,11 +66,12 @@ class Navegador extends Component{
                      {
                         this.state.logueado == false ?
                         <Drawer.Navigator>
-                            <Drawer.Screen name="Login" component={()=> <Login error={this.state.errores} loguearse={(email,contraseña)=>this.login(email,contraseña)}/>}/>
-                            <Drawer.Screen name="Register" component={()=> <Register error={this.state.errores} registrarse={(email,contraseña)=>this.register(email,contraseña)}/>}/>
+                            <Drawer.Screen name="Login" component={(screenprops)=> <Login error={this.state.errores} loguearse={(email,contraseña)=>this.login(email,contraseña)} screenprops={screenprops}/>}/>
+                            <Drawer.Screen name="Register" component={(screenprops)=> <Register error={this.state.errores} registrarse={(email,contraseña)=>this.register(email,contraseña)} screenprops={screenprops}/>}/>
                         </Drawer.Navigator>:
                         <Drawer.Navigator>
-                            <Drawer.Screen name="Home" component={()=> <Home/>} />
+                            <Drawer.Screen name="Home" component={(screenprops)=> <Home screenprops={screenprops}/>} />
+                            <Drawer.Screen name="Busqueda" component={()=> <BusquedaPerfil/>} />
                             <Drawer.Screen name="Perfil" component={()=> <Perfil desloguearse={()=>this.desloguearse()} />} />
                         </Drawer.Navigator>                                          
                     }                                                        
