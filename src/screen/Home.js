@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import {db} from "../firebase/config"
 import Posts from '../components/Posts';
 
@@ -35,12 +35,17 @@ class Home extends Component{
         })
     }
 
+    Posteo(){
+        this.props.screenprops.navigation.navigate("Postear")
+    }
+
     render(){
         return(
         
             <View>
-                <Text> Esta es la home</Text>
-                <FontAwesomeIcon icon={ faCoffee } />
+                <TouchableOpacity  onPress={()=> this.Posteo()} style={styles.centrar}>
+                    <FontAwesomeIcon icon={ faPlus } />
+                </TouchableOpacity>
                 <FlatList  
                     data={this.state.post}
                     keyExtractor={(data)=> data.id}
@@ -53,6 +58,10 @@ class Home extends Component{
    
 }
 const styles = StyleSheet.create({
+
+    centrar:{
+        alignItems:"center"
+    }
 })
 
 export default Home

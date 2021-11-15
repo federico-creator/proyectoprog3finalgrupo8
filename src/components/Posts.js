@@ -4,8 +4,12 @@ import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import "firebase/firestore"
 import Comentario from './comentario';
-import SeccionModal from './seccionModal';
+import SeccionModalcoments from './seccionModalcoments';
 import SeccionModalLike from './SeccionModalLike';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 class Posts extends Component{
@@ -14,10 +18,8 @@ class Posts extends Component{
         super(props)
         this.state={
             liked: false,
-            ShowModal: false,
-            textoModal: "Ver comentarios",
-            likeModal: false,
-            likeTextoModal: "Ver likes"
+            comentModal: true,
+            likeModal: true,
             
 
         }
@@ -34,19 +36,30 @@ class Posts extends Component{
             <Text>Titulo: {data.title}</Text>
             <Text>Descripcion: {data.description}</Text>
             <Text>Likes: {data.likes.length}</Text>
-             {this.state.liked== false?<TouchableOpacity style={styles.touchable} /* onPress={()=> this.Likear(item,data)} */>
-                    <Text style={styles.texto}>Me gusta</Text>
-            </TouchableOpacity>:
-            <TouchableOpacity style={styles.touchable2} /* onPress={()=> this.Likear(item,data)} */>
-                <Text style={styles.texto}>Quitar Like</Text>
-            </TouchableOpacity>
-            } 
+            <View style={styles.iconContainer}>
+                {this.state.liked== false?<TouchableOpacity  /* onPress={()=> this.Likear(item,data)} */>
+                        <FontAwesomeIcon  style={styles.textocorazongris} icon={ faHeart } />
+                </TouchableOpacity>:
+                <TouchableOpacity /* onPress={()=> this.Likear(item,data)} */>
+                    <FontAwesomeIcon   style={styles.textocorazonrojo} icon={ faHeart } />
+                </TouchableOpacity>
+                } 
+                <TouchableOpacity   /* onPress={()=> this.modalLike()} */>
+                    <FontAwesomeIcon   icon={ faInfoCircle } />
+                </TouchableOpacity>
+                <TouchableOpacity  /* onPress={()=> this.modalComent()} */>
+                    <FontAwesomeIcon   icon={ faComment } />
+                </TouchableOpacity>
+            </View>
+             
 
-            {/* <SeccionModalLike modal={()=> this.modalLike()} ShowModal={this.state.likeModal} textoModal={this.state.likeTextoModal} data={data}/>
 
-            <Comentario comentario={(coment)=>this.comentario(coment)} /> 
+            {this.state.likeModal?/* <SeccionModalLike modal={()=> this.modalLike()}  data={data}/>*/"hola":"chau"}
+            
 
-            <SeccionModal modal={()=> this.modal()} ShowModal={this.state.ShowModal} textoModal={this.state.textoModal} data={data}/> */}
+            {this.state.comentModal?/*<Comentario comentario={(coment)=>this.comentario(coment)} /> <SeccionModalcoments modal={()=> this.modalComent()}   data={data}/> */"hola":"chau"}
+
+
         </View>)
     }
    
@@ -86,6 +99,12 @@ const styles = StyleSheet.create({
     texto:{
         color:"#FFF"
     },
+    textocorazongris:{
+        color:"gray"
+    },
+    textocorazonrojo:{
+        color:"red"
+    },
     input: {
         height: 20,
         borderWidth:1,
@@ -107,6 +126,14 @@ const styles = StyleSheet.create({
         borderStyle:"solid",
         borderWidth:1,
         borderColor:"gray"
+    },
+    iconContainer:{
+        textAlign:"center",
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"gray",
+        justifyContent:"space-between",
+        flexDirection:"row"
     },
 })
 

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet,Text, View, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -8,9 +10,7 @@ class SeccionModalLike extends Component{
     constructor(props){
         super(props)
         this.state={
-            LikeModal: this.props.LikeModal,
-            likeTextoModal: this.props.likeTextoModal
-            
+          
 
         }
     }
@@ -25,8 +25,8 @@ class SeccionModalLike extends Component{
                 <Text style={styles.texto}>{this.props.textoModal}</Text>
             </TouchableOpacity>
 
-            { this.props.ShowModal?
-                <Modal visible={this.props.ShowModal}
+            { this.props.likeModal?
+                <Modal visible={this.props.likeModal}
                 animationType="none"
                 transparent={false}>
                     {this.props.data.comments.length== 0? <Text>"no existen Likes, se el primero"</Text>:
