@@ -8,6 +8,7 @@ import Login from '../screen/Login';
 import Perfil from '../screen/Perfil';
 import BusquedaPerfil from '../screen/BusquedaPerfil';
 import {auth} from "../firebase/config"
+import Postear from '../screen/Postear';
 
 
 class Navegador extends Component{
@@ -71,6 +72,7 @@ class Navegador extends Component{
                         </Drawer.Navigator>:
                         <Drawer.Navigator>
                             <Drawer.Screen name="Home" component={(screenprops)=> <Home screenprops={screenprops}/>} />
+                            <Drawer.Screen name="Postear" component={()=> <Postear />} />
                             <Drawer.Screen name="Busqueda" component={()=> <BusquedaPerfil/>} />
                             <Drawer.Screen name="Perfil" component={()=> <Perfil desloguearse={()=>this.desloguearse()} />} />
                         </Drawer.Navigator>                                          
