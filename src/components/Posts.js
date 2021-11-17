@@ -32,6 +32,7 @@ class Posts extends Component{
         let {data} = item
         return(
         <View style={styles.container}>
+            {data.photo == ""?"":<Image style={styles.imagen} source={{uri:`${data.photo}`}} resizeMode="contain"/>}
             <Text>Usuario: {data.user}</Text>
             <Text>Titulo: {data.title}</Text>
             <Text>Descripcion: {data.description}</Text>
@@ -134,6 +135,10 @@ const styles = StyleSheet.create({
         borderColor:"gray",
         justifyContent:"space-between",
         flexDirection:"row"
+    },
+    imagen:{
+        width:250,
+        height:250,
     },
 })
 

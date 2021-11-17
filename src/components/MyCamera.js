@@ -53,7 +53,7 @@ class MyCamera extends Component{
                                 .then((url)=> {
                                     this.props.onImageUpload(url)
                                     this.setState({
-                                        photo:""
+                                        photo:null
                                     })
                                 })
                         })
@@ -87,7 +87,7 @@ class MyCamera extends Component{
                         ref={(cam)=> (this.camera = cam)}
                     />
                     <TouchableOpacity onPress={()=> this.takePicture()}>
-                        <FontAwesomeIcon   icon={ faCamera } />
+                        <FontAwesomeIcon  style={styles.iconocamara} icon={ faCamera } />
                     </TouchableOpacity>
                 </>}
             </>
@@ -96,6 +96,11 @@ class MyCamera extends Component{
    
 }
 const styles = StyleSheet.create({
+    iconocamara:{
+        alignContent:"center",
+        height:50,
+        width:50
+    }
 })
 
 export default MyCamera

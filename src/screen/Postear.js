@@ -46,7 +46,7 @@ class Postear extends Component{
     onImageUpload(url) {
         this.setState({
             url: url,
-            ShowCamera: false
+            camera: false
         })
     }
 
