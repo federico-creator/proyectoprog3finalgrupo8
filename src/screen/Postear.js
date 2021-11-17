@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput } from 'react-native';
 import {auth, db} from "../firebase/config"
+import MyCamera from '../components/MyCamera';
 
 
 class Postear extends Component{
@@ -9,7 +10,9 @@ class Postear extends Component{
         super(props)
         this.state={
             title: "",
-            description:""
+            description:"",
+            camera: false,
+            url:""
             
         }
     }
@@ -17,14 +20,15 @@ class Postear extends Component{
     submitPost(){
         db.collection("posts").add({
             user: auth.currentUser.email,
+            userName: auth.currentUser.displayName,
             createdAt: Date.now(),
             title: this.state.title ,
             description: this.state.description ,
             likes: [],
-            comments: []
+            comments: [],
+            photo: this.state.url
         })
         .then(() => {
-            console.log("se posteo exitosamente")
             this.setState({
                 title:"",
                 description:""
@@ -32,6 +36,20 @@ class Postear extends Component{
         })
         .catch((err)=>console.log(err))
     }
+
+    habilitarCamara(){
+        this.setState({
+            camera: true
+        })
+    }
+
+    onImageUpload(url) {
+        this.setState({
+            url: url,
+            ShowCamera: false
+        })
+    }
+
     render(){
         return(
         < >
@@ -49,10 +67,20 @@ class Postear extends Component{
                     multiline={true}
                 />
 
-
-                <TouchableOpacity style={styles.touchable}   onPress={()=> this.submitPost()} >
-                    <Text style={styles.texto}>Crea tu posteo</Text>
+                <TouchableOpacity style={styles.touchable2}   onPress={()=> this.habilitarCamara()} >
+                    <Text style={styles.texto2}>Agregar una foto al posteo</Text>
                 </TouchableOpacity>
+
+                {this.state.camera? <MyCamera onImageUpload={(url)=> this.onImageUpload(url)}/>:""}
+
+                {this.state.title.length==0|| this.state.description.length==0? 
+                    <TouchableOpacity style={styles.touchablegray}    >
+                        <Text style={styles.texto}>Crea tu posteo</Text>
+                    </TouchableOpacity>:
+                    <TouchableOpacity style={styles.touchable}   onPress={()=> this.submitPost()} >
+                        <Text style={styles.texto}>Crea tu posteo</Text>
+                    </TouchableOpacity>
+                }
 
 
             
@@ -85,8 +113,39 @@ const styles = StyleSheet.create({
         
 
     },
+    touchablegray:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "grey",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"grey"
+        
+
+    },
+    touchable2:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "yellow",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"red"
+        
+
+    },
     texto:{
         color:"#FFF"
+    },
+    texto2:{
+        color:"black"
     },
 })
 

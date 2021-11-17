@@ -46,14 +46,28 @@ class Navegador extends Component{
         .catch((error)=> this.setState({errores: error.message}))
     }
 
-    register(email, pass){
+    register(email, pass, username){
         auth.createUserWithEmailAndPassword(email,pass)
         .then(()=> {return (this.setState({
             logueado: true,
         })
         )})
+        .then(()=>{ return(
+            this.actualizarusuario(username)
+        )})
         .catch((error)=> this.setState({errores: error.message})) 
 
+    }
+    actualizarusuario(username){
+        const user = auth.currentUser;
+
+        user.updateProfile({
+            displayName: username
+        }).then(() => {
+            console.log("se actualizo el nombre de usuario")
+        }).catch((error) => {
+            console.log(error)
+        });  
     }
     desloguearse(){
         auth.signOut()
@@ -68,7 +82,7 @@ class Navegador extends Component{
                         this.state.logueado == false ?
                         <Drawer.Navigator>
                             <Drawer.Screen name="Login" component={(screenprops)=> <Login error={this.state.errores} loguearse={(email,contraseña)=>this.login(email,contraseña)} screenprops={screenprops}/>}/>
-                            <Drawer.Screen name="Register" component={(screenprops)=> <Register error={this.state.errores} registrarse={(email,contraseña)=>this.register(email,contraseña)} screenprops={screenprops}/>}/>
+                            <Drawer.Screen name="Register" component={(screenprops)=> <Register error={this.state.errores} registrarse={(email,contraseña, username)=>this.register(email,contraseña, username)} screenprops={screenprops}/>}/>
                         </Drawer.Navigator>:
                         <Drawer.Navigator>
                             <Drawer.Screen name="Home" component={(screenprops)=> <Home screenprops={screenprops}/>} />

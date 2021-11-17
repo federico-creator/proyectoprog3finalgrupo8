@@ -11,9 +11,10 @@ class Perfil extends Component{
         }
     }
     render(){
+        console.log(auth.currentUser)
         return(
         < >
-            <Text > Bienvenido: {auth.currentUser.email} </Text>
+            <Text > Bienvenido: {auth.currentUser.email} conocido como: {auth.currentUser.displayName} </Text>
             <Text > Fecha de creación: {auth.currentUser.metadata.creationTime} </Text>
             <Text > Fecha de último loguin: {auth.currentUser.metadata.lastSignInTime} </Text>
 

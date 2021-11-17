@@ -3,9 +3,9 @@ import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndic
 import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import "firebase/firestore"
-import Comentario from './comentario';
+/* import Comentario from './comentario';
 import SeccionModalcoments from './seccionModalcoments';
-import SeccionModalLike from './SeccionModalLike';
+import SeccionModalLike from './SeccionModalLike'; */
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'

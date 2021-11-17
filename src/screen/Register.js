@@ -19,41 +19,40 @@ class Register extends Component{
         return(
         <View style={styles.container}>
         
-            <Text styles={styles.centrado}> Hello world</Text>
 
-            <View>
+            <TextInput style={styles.input}
+                keyboardType="email-address"
+                placeholder="Email"
+                onChangeText={text => this.setState({email:text})}
+            />
 
-                <TextInput style={styles.input}
-                    keyboardType="email-address"
-                    placeholder="Email"
-                    onChangeText={text => this.setState({email:text})}
-                />
+            <TextInput style={styles.input}
+                keyboardType="default"
+                placeholder="Nombre de Usuario"
+                onChangeText={text => this.setState({username:text})}
+            />
 
-                <TextInput style={styles.input}
-                    keyboardType="default"
-                    placeholder="Nombre de Usuario"
-                    onChangeText={text => this.setState({username:text})}
-                />
+            <TextInput style={styles.input}
+                keyboardType="default"
+                placeholder="Contraseña"
+                onChangeText={text => this.setState({pasword:text})}
+                secureTextEntry={true}
+            />
+            {this.props.error==""?"": <Text style={styles.textoerror}>{this.props.error}</Text>}
 
-                <TextInput style={styles.input}
-                    keyboardType="default"
-                    placeholder="Contraseña"
-                    onChangeText={text => this.setState({pasword:text})}
-                    secureTextEntry={true}
-                />
-                {this.props.error==""?"": <Text style={styles.textoerror}>{this.props.error}</Text>}
-
-                <TouchableOpacity style={styles.touchable}  onPress={()=> this.props.registrarse(this.state.email,this.state.pasword)}>
+            {this.state.email.length==0|| this.state.pasword.length==0||this.state.username.length==0?
+                <TouchableOpacity style={styles.touchablegrey}>
+                    <Text style={styles.texto}>Registrarse</Text>
+                </TouchableOpacity>:
+                <TouchableOpacity style={styles.touchable}  onPress={()=> this.props.registrarse(this.state.email,this.state.pasword,this.state.username)}>
                     <Text style={styles.texto}>Registrarse</Text>
                 </TouchableOpacity>
+            }
 
-                <TouchableOpacity  onPress={()=> this.login()}>
-                    <Text style={styles.texto2}>¿Ya tenes Cuenta? Logueate</Text>
-                </TouchableOpacity>
+            <TouchableOpacity  onPress={()=> this.login()}>
+                <Text style={styles.texto2}>¿Ya tenes Cuenta? Logueate</Text>
+            </TouchableOpacity>
 
-
-
-            </View>
         </View>)
     }
    
@@ -74,6 +73,20 @@ const styles = StyleSheet.create({
         borderStyle:"solid",
         borderWidth:1,
         borderColor:"#28a745"
+        
+
+    },
+    touchablegrey:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "gray",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"gray"
         
 
     },
