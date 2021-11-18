@@ -17,7 +17,6 @@ class Posts extends Component{
     constructor(props){
         super(props)
         this.state={
-            likes: 0,
             liked: false,
             comentModal: true,
             likeModal: true,
@@ -31,60 +30,54 @@ class Posts extends Component{
     }
     
     recieveLikes() {
-        let likes = this.props.data.likes;
-        if(likes) {
-            this.setState({
-                likes: likes.length
-            })
-        }
+        let likes = this.props.data.item.data.likes;
+        
         if(likes.includes(auth.currentUser.email)
         ){
             this.setState({
                 liked: true
             })
         }
+        else{
+            this.setState({
+                liked: false
+            })
+        }
     }
 
     likePost() {
-        let post = db.collection("posts").doc(this.props.data.id);
-
-// Set the "capital" field of the city 'DC'
-        post.update({
-            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
-        })
-        .then(() => {
-            this.setState({
-                likes: this.state.likes + 1,
-                liked: true
+        let post = db.collection("posts").doc(this.props.data.item.id);
+        if(this.state.liked == false) {
+            post.update({
+                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
             })
-            console.log("likeado");
-        })
-        .catch((error) => {
-    // The document probably doesn't exist.
-            console.log(error);
-        });
-
-
-    }
-
-    unlikePost() {
-        let post = db.collection("posts").doc(this.props.data.id);
-
-// Set the "capital" field of the city 'DC'
-        post.update({
-            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
-        })
-        .then(() => {
-            this.setState({
-                likes: this.state.likes - 1,
-                liked: false
+            .then(() => {
+                this.setState({
+                    liked: true
+                })
+                console.log("likeado");
             })
-            console.log("deslikeado");
-        })
-        .catch((error) => {
-    // The document probably doesn't exist.
-            console.log(error);
-        });
+            .catch((error) => {
+        
+                console.log(error);
+            });
+            
+        }
+        else{
+            post.update({
+                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+            })
+            .then(() => {
+                this.setState({
+                    liked: false
+                })
+                console.log("deslikeado");
+            })
+            .catch((error) => {
+        
+                console.log(error);
+            });
+        }   
         
     }
 
@@ -101,19 +94,12 @@ class Posts extends Component{
             <Text>Likes: {data.likes.length}</Text>
             <View style={styles.iconContainer}>
                 {this.state.liked== false?
-                    // <TouchableOpacity onPress={() => this.likePost()}>
-                    //         <text>Likear</text>
-                    // </TouchableOpacity>
-                
-                    // <TouchableOpacity onPress={() => this.unlikePost()}>
-                    // <text>Deslikear</text>
-                    // </TouchableOpacity>
                     
-                    <TouchableOpacity  /* onPress={()=> this.Likear(item,data)} */>
+                    <TouchableOpacity  onPress={()=> this.likePost()} >
                         <FontAwesomeIcon  style={styles.textocorazongris} icon={ faHeart } />
                     </TouchableOpacity>
                 :
-                    <TouchableOpacity /* onPress={()=> this.Likear(item,data)} */>
+                    <TouchableOpacity  onPress={()=> this.likePost()} >
                         <FontAwesomeIcon   style={styles.textocorazonrojo} icon={ faHeart } />
                     </TouchableOpacity>
                 } 
