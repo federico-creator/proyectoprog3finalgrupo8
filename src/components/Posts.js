@@ -3,13 +3,14 @@ import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndic
 import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import "firebase/firestore"
-/* import Comentario from './comentario';
-import SeccionModalcoments from './seccionModalcoments';
-import SeccionModalLike from './SeccionModalLike'; */
+import Comentario from './Comentario';
+import SeccionModalcoments from './SeccionModalComents';
+/*import SeccionModalLike from './SeccionModalLike'; */
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
 
 
 class Posts extends Component{
@@ -18,12 +19,22 @@ class Posts extends Component{
         super(props)
         this.state={
             liked: false,
-            comentModal: true,
+            comentModal: false,
             likeModal: true,
             
 
         }
     }
+
+    modalComent(){
+
+        this.setState({
+            comentModal: true
+        })
+
+    }
+
+
 
     componentDidMount() {
         this.recieveLikes();
@@ -106,7 +117,7 @@ class Posts extends Component{
                     <TouchableOpacity   /* onPress={()=> this.modalLike()} */>
                         <FontAwesomeIcon   icon={ faInfoCircle } />
                     </TouchableOpacity>
-                    <TouchableOpacity  /* onPress={()=> this.modalComent()} */>
+                    <TouchableOpacity  onPress={()=> this.modalComent()} >
                         <FontAwesomeIcon   icon={ faComment } />
                     </TouchableOpacity>
             </View>
@@ -115,8 +126,8 @@ class Posts extends Component{
 
             {this.state.likeModal?/* <SeccionModalLike modal={()=> this.modalLike()}  data={data}/>*/"hola":"chau"}
             
-
-            {this.state.comentModal?/*<Comentario comentario={(coment)=>this.comentario(coment)} /> <SeccionModalcoments modal={()=> this.modalComent()}   data={data}/> */"hola":"chau"}
+            
+            {this.state.comentModal? <View> <Comentario comentario={(coment)=>this.comentario(coment)} /> <SeccionModalcoments modal={()=> this.modalComent()}   data={data}/> </View> :""}
 
 
         </View>)
