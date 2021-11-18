@@ -17,6 +17,7 @@ class Posts extends Component{
     constructor(props){
         super(props)
         this.state={
+            likes: 0,
             liked: false,
             comentModal: true,
             likeModal: true,
@@ -24,7 +25,68 @@ class Posts extends Component{
 
         }
     }
+
+    componentDidMount() {
+        this.recieveLikes();
+    }
     
+    recieveLikes() {
+        let likes = this.props.data.likes;
+        if(likes) {
+            this.setState({
+                likes: likes.length
+            })
+        }
+        if(likes.includes(auth.currentUser.email)
+        ){
+            this.setState({
+                liked: true
+            })
+        }
+    }
+
+    likePost() {
+        let post = db.collection("posts").doc(this.props.data.id);
+
+// Set the "capital" field of the city 'DC'
+        post.update({
+            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
+        })
+        .then(() => {
+            this.setState({
+                likes: this.state.likes + 1,
+                liked: true
+            })
+            console.log("likeado");
+        })
+        .catch((error) => {
+    // The document probably doesn't exist.
+            console.log(error);
+        });
+
+
+    }
+
+    unlikePost() {
+        let post = db.collection("posts").doc(this.props.data.id);
+
+// Set the "capital" field of the city 'DC'
+        post.update({
+            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+        })
+        .then(() => {
+            this.setState({
+                likes: this.state.likes - 1,
+                liked: false
+            })
+            console.log("deslikeado");
+        })
+        .catch((error) => {
+    // The document probably doesn't exist.
+            console.log(error);
+        });
+        
+    }
 
     render(){
         console.log(this.props.data)
@@ -38,19 +100,29 @@ class Posts extends Component{
             <Text>Descripcion: {data.description}</Text>
             <Text>Likes: {data.likes.length}</Text>
             <View style={styles.iconContainer}>
-                {this.state.liked== false?<TouchableOpacity  /* onPress={()=> this.Likear(item,data)} */>
+                {this.state.liked== false?
+                    // <TouchableOpacity onPress={() => this.likePost()}>
+                    //         <text>Likear</text>
+                    // </TouchableOpacity>
+                
+                    // <TouchableOpacity onPress={() => this.unlikePost()}>
+                    // <text>Deslikear</text>
+                    // </TouchableOpacity>
+                    
+                    <TouchableOpacity  /* onPress={()=> this.Likear(item,data)} */>
                         <FontAwesomeIcon  style={styles.textocorazongris} icon={ faHeart } />
-                </TouchableOpacity>:
-                <TouchableOpacity /* onPress={()=> this.Likear(item,data)} */>
-                    <FontAwesomeIcon   style={styles.textocorazonrojo} icon={ faHeart } />
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                :
+                    <TouchableOpacity /* onPress={()=> this.Likear(item,data)} */>
+                        <FontAwesomeIcon   style={styles.textocorazonrojo} icon={ faHeart } />
+                    </TouchableOpacity>
                 } 
-                <TouchableOpacity   /* onPress={()=> this.modalLike()} */>
-                    <FontAwesomeIcon   icon={ faInfoCircle } />
-                </TouchableOpacity>
-                <TouchableOpacity  /* onPress={()=> this.modalComent()} */>
-                    <FontAwesomeIcon   icon={ faComment } />
-                </TouchableOpacity>
+                    <TouchableOpacity   /* onPress={()=> this.modalLike()} */>
+                        <FontAwesomeIcon   icon={ faInfoCircle } />
+                    </TouchableOpacity>
+                    <TouchableOpacity  /* onPress={()=> this.modalComent()} */>
+                        <FontAwesomeIcon   icon={ faComment } />
+                    </TouchableOpacity>
             </View>
              
 

@@ -12,8 +12,8 @@ class Postear extends Component{
             title: "",
             description:"",
             camera: false,
-            url:""
-            
+            url:"",
+
         }
     }
 
