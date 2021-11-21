@@ -1,15 +1,36 @@
 import React, {Component} from 'react';
 import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput } from 'react-native';
-import {auth} from "../firebase/config"
+import {auth, db} from "../firebase/config"
+import PostsPerfil from '../components/PostPerfil';
 
 class Perfil extends Component{
 
     constructor(props){
         super(props)
         this.state={
-            
+            post : []
         }
     }
+    componentDidMount(){
+        this.showPost()
+        
+    }
+
+    showPost(){
+        db.collection("posts").where("user","==",`${auth.currentUser.email}`).onSnapshot((docs)=>{
+            let posts = []
+            docs.forEach((doc)=>{
+                posts.push({
+                    id: doc.id,
+                    data: doc.data()
+                })
+            })
+            this.setState({
+                post: posts
+            })
+        })
+    }
+
     render(){
         console.log(auth.currentUser)
         return(
@@ -17,6 +38,11 @@ class Perfil extends Component{
             <Text > Bienvenido: {auth.currentUser.email} conocido como: {auth.currentUser.displayName} </Text>
             <Text > Fecha de creación: {auth.currentUser.metadata.creationTime} </Text>
             <Text > Fecha de último loguin: {auth.currentUser.metadata.lastSignInTime} </Text>
+            <FlatList  
+                data={this.state.post}
+                keyExtractor={(data)=> data.id}
+                renderItem={(item)=>( <PostsPerfil data={item}/> )}  >
+            </FlatList>
 
             <TouchableOpacity style={styles.touchable} onPress={()=> this.props.desloguearse()}>
                     <Text style={styles.texto}>Desloguearse</Text>

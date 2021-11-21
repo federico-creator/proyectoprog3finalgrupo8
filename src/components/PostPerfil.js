@@ -13,14 +13,14 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 
-class Posts extends Component{
+class PostsPerfil extends Component{
 
     constructor(props){
         super(props)
         this.state={
             liked: false,
             comentModal: false,
-            likeModal: false,
+            likeModal: true,
             
 
         }
@@ -128,6 +128,15 @@ class Posts extends Component{
 
     }
 
+    eliminarPost(id){
+        db.collection("posts").doc(id).delete()
+        .then(() => {
+            console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
+
     render(){
         console.log(this.props.data)
         let {item} = this.props.data
@@ -150,7 +159,7 @@ class Posts extends Component{
                         <FontAwesomeIcon   style={styles.textocorazonrojo} icon={ faHeart } />
                     </TouchableOpacity>
                 } 
-                    <TouchableOpacity    onPress={()=> this.modalLike()} >
+                    <TouchableOpacity    onPress={()=> this.modalLike()}>
                         <FontAwesomeIcon   icon={ faInfoCircle } />
                     </TouchableOpacity>
                     <TouchableOpacity  onPress={()=> this.modalComent()} >
@@ -166,6 +175,9 @@ class Posts extends Component{
             {this.state.comentModal? <View> <Comentario comentario={(coment)=>this.comentario(coment)} /> <SeccionModalcoments data={data}/> </View> :<Text></Text>}
 
 
+            <TouchableOpacity  style={styles.touchable2} onPress={()=> this.eliminarPost(item.id)} >
+                <Text>Borrar posteo</Text>
+            </TouchableOpacity>
         </View>)
     }
    
@@ -248,4 +260,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Posts
+export default PostsPerfil

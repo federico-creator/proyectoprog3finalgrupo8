@@ -3,11 +3,12 @@ import { StyleSheet,Text, View, TouchableOpacity, FlatList, Modal } from 'react-
 
 
 
-class SeccionModalComents extends Component{
+class SeccionModalLike extends Component{
 
     constructor(props){
         super(props)
-        this.state={          
+        this.state={           
+
         }
     }
 
@@ -16,15 +17,14 @@ class SeccionModalComents extends Component{
         
         return(
         <View>
-            
                 <Modal style={styles.modal} 
                 visible={this.props.ShowModal}
                 animationType="none"
                 transparent={false}>
-                    {this.props.data.comments.length== 0? <Text>"no existen comentarios, empeza a escribirlos"</Text>:
-                        <FlatList  data={this.props.data.comments}
-                        keyExtractor= {(data)=> data.fechaDeCreacion.toString()}
-                        renderItem={({item})=> <Text> {item.usuario} escribio: {item.texto} </Text>}  /> 
+                    {this.props.data.likes.length== 0? <Text>"no existen Likes, se el primero"</Text>:
+                        <FlatList  data={this.props.data.likes}
+                        keyExtractor= {(data)=> data}
+                        renderItem={({item})=> <Text> {item} le dio like </Text>}  /> //Render item si o si tiene que tener el objeto item para funcionar
                     }
                 </Modal>
         </View>)
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SeccionModalComents
+export default SeccionModalLike
