@@ -71,7 +71,7 @@ class Postear extends Component{
                     <Text style={styles.texto2}>Agregar una foto al posteo</Text>
                 </TouchableOpacity>
 
-                {this.state.camera? <MyCamera onImageUpload={(url)=> this.onImageUpload(url)}/>:""}
+                {this.state.camera? <MyCamera onImageUpload={(url)=> this.onImageUpload(url)}/>:<Text></Text>}
 
                 {this.state.title.length==0|| this.state.description.length==0? 
                     <TouchableOpacity style={styles.touchablegray}    >

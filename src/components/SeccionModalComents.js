@@ -7,12 +7,45 @@ class SeccionModalComents extends Component{
 
     constructor(props){
         super(props)
-        this.state={          
+        this.state={  
+            comentarios: [],  
+            numeros: this.props.data.comments.length     
         }
+    }
+    componentDidMount(){
+        this.ordenarComentario()
+    }
+
+    ordenarComentario(){
+        let comentariosOrdenados = []
+        let comentariosAscendentes = this.props.data.comments.map((comentario)=>comentario.fechaDeCreacion)
+        comentariosAscendentes.sort()
+        comentariosAscendentes.reverse()
+        comentariosAscendentes.map((comentario)=>(
+            comentariosOrdenados= comentariosOrdenados.concat(this.props.data.comments.filter((comentarios) => comentarios.fechaDeCreacion.toString().includes(comentario.toString()) ))
+          ))
+        console.log(comentariosOrdenados)
+      this.setState({
+          comentarios:comentariosOrdenados
+      })
+    }
+
+    paraactualizarse(){
+        this.ordenarComentario()
+        this.setState({
+            numeros: this.props.data.comments.length
+        })
+
     }
 
 
     render(){
+        console.log(this.state.comentarios)
+        if(this.state.numeros == this.props.data.comments.length){
+        }
+        else{
+            this.paraactualizarse()
+        }
         
         return(
         <View>
@@ -21,8 +54,8 @@ class SeccionModalComents extends Component{
                 visible={this.props.ShowModal}
                 animationType="none"
                 transparent={false}>
-                    {this.props.data.comments.length== 0? <Text>"no existen comentarios, empeza a escribirlos"</Text>:
-                        <FlatList  data={this.props.data.comments}
+                    {this.state.comentarios.length== 0? <Text>no existen comentarios, empeza a escribirlos</Text>:
+                        <FlatList  data={this.state.comentarios}
                         keyExtractor= {(data)=> data.fechaDeCreacion.toString()}
                         renderItem={({item})=> <Text> {item.usuario} escribio: {item.texto} </Text>}  /> 
                     }

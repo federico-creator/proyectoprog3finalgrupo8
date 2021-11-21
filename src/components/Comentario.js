@@ -31,10 +31,14 @@ class Comentario extends Component{
 
                 />
 
-
-                <TouchableOpacity style={styles.touchable} onPress={()=> this.coment(this.state.comentario)}>
-                    <Text style={styles.texto}>Escribir comentario</Text>
-                </TouchableOpacity>
+                {this.state.comentario.length==0?
+                    <TouchableOpacity style={styles.touchable2}>
+                        <Text style={styles.texto}>Escribir comentario</Text>
+                    </TouchableOpacity>:
+                    <TouchableOpacity style={styles.touchable} onPress={()=> this.coment(this.state.comentario)}>
+                        <Text style={styles.texto}>Escribir comentario</Text>
+                    </TouchableOpacity>
+                }
 
 
 
@@ -59,6 +63,20 @@ const styles = StyleSheet.create({
         borderStyle:"solid",
         borderWidth:1,
         borderColor:"#28a745"
+        
+
+    },
+    touchable2:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "gray",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"gray"
         
 
     },

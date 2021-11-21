@@ -32,7 +32,7 @@ class Login extends Component{
                 onChangeText={text => this.setState({pasword:text})}
                 secureTextEntry={true}
             />
-            {this.props.error==""?"": <Text style={styles.textoerror}>{this.props.error}</Text>}
+            {this.props.error==""?<Text></Text>: <Text style={styles.textoerror}>{this.props.error}</Text>}
 
             {this.state.email.length==0|| this.state.pasword.length==0?
                 <TouchableOpacity style={styles.touchablegrey}>

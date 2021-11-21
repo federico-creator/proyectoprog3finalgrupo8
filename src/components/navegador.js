@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {createDrawerNavigator} from "@react-navigation/drawer"
+import { StyleSheet } from 'react-native';
 const Drawer = createDrawerNavigator();  
 
 import Home from '../screen/Home';
@@ -9,6 +10,8 @@ import Perfil from '../screen/Perfil';
 import BusquedaPerfil from '../screen/BusquedaPerfil';
 import {auth} from "../firebase/config"
 import Postear from '../screen/Postear';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 class Navegador extends Component{
@@ -86,7 +89,7 @@ class Navegador extends Component{
                         </Drawer.Navigator>:
                         <Drawer.Navigator>
                             <Drawer.Screen name="Home" component={(screenprops)=> <Home screenprops={screenprops}/>} />
-                            <Drawer.Screen name="Postear" component={()=> <Postear />} />
+                            <Drawer.Screen name="Postear"  component={()=> <Postear />} options={{tabBarIcon: () => (<FontAwesomeIcon icon={ faPlus } style={styles.iconos}/>)}}/>
                             <Drawer.Screen name="Busqueda" component={()=> <BusquedaPerfil/>} />
                             <Drawer.Screen name="Perfil" component={()=> <Perfil desloguearse={()=>this.desloguearse()} />} />
                         </Drawer.Navigator>                                          
@@ -96,8 +99,17 @@ class Navegador extends Component{
            
         )
     }
+    
    
 }
+const styles = StyleSheet.create({
+
+    iconos:{
+        height:10,
+        width:10,
+        color:"red"
+    }
+})
 
 
 export default Navegador
