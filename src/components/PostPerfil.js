@@ -20,7 +20,8 @@ class PostsPerfil extends Component{
         this.state={
             liked: false,
             comentModal: false,
-            likeModal: true,
+            likeModal: false,
+            borrarModal: false,
             
 
         }
@@ -137,6 +138,19 @@ class PostsPerfil extends Component{
         });
     }
 
+    borrarModal(){
+        if (this.state.borrarModal) {
+            this.setState({
+                borrarModal: false,
+            })   
+        }
+        else{
+            this.setState({
+                borrarModal: true,
+            })  
+        }
+    }
+
     render(){
         console.log(this.props.data)
         let {item} = this.props.data
@@ -175,9 +189,31 @@ class PostsPerfil extends Component{
             {this.state.comentModal? <View> <Comentario comentario={(coment)=>this.comentario(coment)} /> <SeccionModalcoments data={data}/> </View> :<Text></Text>}
 
 
-            <TouchableOpacity  style={styles.touchable2} onPress={()=> this.eliminarPost(item.id)} >
-                <Text>Borrar posteo</Text>
-            </TouchableOpacity>
+            {this.state.borrarModal?
+                <TouchableOpacity  style={styles.touchable2} >
+                    <Text>Borrar posteo</Text>
+                </TouchableOpacity>:
+                <TouchableOpacity  style={styles.touchable2} onPress={()=> this.borrarModal()} >
+                    <Text>Borrar posteo</Text>
+                </TouchableOpacity>
+            }
+            {this.state.borrarModal?
+                <Modal style={styles.modal} 
+                visible={this.state.borrarModal}
+                animationType="none"
+                transparent={false}>
+                    <Text> ¿Esta seguro que quiere eliminar el posteo? Nos dolería muchícimo</Text>
+                    <TouchableOpacity  style={styles.touchable} onPress={()=> this.borrarModal()} >
+                        <Text>No, me arrepentí</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity  style={styles.touchable2} onPress={()=> this.eliminarPost(item.id)} >
+                        <Text>Si, desceo borrar el Posteo</Text>
+                    </TouchableOpacity>
+                </Modal>
+                :
+                <Text></Text>
+            }
+            
         </View>)
     }
    
@@ -258,6 +294,11 @@ const styles = StyleSheet.create({
         height:250,
         alignContent:"center"
     },
+    modal:{
+        width:"100%",
+        borderColor:"black",
+        marginVertical: 10
+    }
 })
 
 export default PostsPerfil

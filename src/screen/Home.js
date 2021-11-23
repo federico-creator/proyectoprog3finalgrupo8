@@ -42,7 +42,7 @@ class Home extends Component{
     render(){
         return(
         
-            <View>
+            <View style={styles.container}>
                 <TouchableOpacity  onPress={()=> this.Posteo()} style={styles.centrar}>
                     <FontAwesomeIcon icon={ faPlus } />
                 </TouchableOpacity>
@@ -61,7 +61,13 @@ const styles = StyleSheet.create({
 
     centrar:{
         alignItems:"center"
-    }
+    },
+    container: {
+        marginTop:20,
+        paddingHorizontal: 10,
+        backgroundColor:"rgba(0, 0, 0, 0.6)",
+        height:"100%",
+    },
 })
 
 export default Home

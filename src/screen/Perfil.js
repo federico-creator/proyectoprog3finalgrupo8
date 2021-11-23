@@ -32,12 +32,12 @@ class Perfil extends Component{
     }
 
     render(){
-        console.log(auth.currentUser)
         return(
         < >
             <Text > Bienvenido: {auth.currentUser.email} conocido como: {auth.currentUser.displayName} </Text>
             <Text > Fecha de creación: {auth.currentUser.metadata.creationTime} </Text>
             <Text > Fecha de último loguin: {auth.currentUser.metadata.lastSignInTime} </Text>
+            <Text > Ha subido un total de {this.state.post.length} posteos </Text>
             <FlatList  
                 data={this.state.post}
                 keyExtractor={(data)=> data.id}

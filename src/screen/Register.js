@@ -41,7 +41,7 @@ class Register extends Component{
             {this.props.error==""?<Text></Text>: <Text style={styles.textoerror}>{this.props.error}</Text>}
 
             {this.state.email.length==0|| this.state.pasword.length==0||this.state.username.length==0?
-                <TouchableOpacity style={styles.touchablegrey}>
+                <TouchableOpacity style={styles.touchable2}>
                     <Text style={styles.texto}>Registrarse</Text>
                 </TouchableOpacity>:
                 <TouchableOpacity style={styles.touchable}  onPress={()=> this.props.registrarse(this.state.email,this.state.pasword,this.state.username)}>
@@ -61,32 +61,34 @@ const styles = StyleSheet.create({
     container: {
         marginTop:20,
         paddingHorizontal: 10,
+        backgroundColor:"rgba(0, 0, 0, 0.6)",
+        height:"100%",
+    },
+    touchable2:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "rgba(84, 78, 73, 0.9)",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"rgba(84, 78, 73, 0.9)"
+        
+
     },
     touchable:{
         textAlign:"center",
         padding: 5,
-        backgroundColor: "#28a745",
+        backgroundColor: "rgba(84, 204, 73, 0.9)",
         marginBottom: 10,
         borderRadius:4,
         paddingHorizontal: 10,
         paddingVertical: 6,
         borderStyle:"solid",
         borderWidth:1,
-        borderColor:"#28a745"
-        
-
-    },
-    touchablegrey:{
-        textAlign:"center",
-        padding: 5,
-        backgroundColor: "gray",
-        marginBottom: 10,
-        borderRadius:4,
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderStyle:"solid",
-        borderWidth:1,
-        borderColor:"gray"
+        borderColor:"rgba(84, 204, 73, 0.9)"
         
 
     },
@@ -94,10 +96,10 @@ const styles = StyleSheet.create({
         color:"#FFF"
     },
     input: {
-        height: 20,
-        borderWidth:1,
+        height: 50,
+        borderWidth:3,
         borderStyle:"solid",
-        borderColor: "#ccc",
+        borderColor: "rgba(176, 145, 0, 0.9)",
         borderRadius:6,
         paddingHorizontal:10,
         paddingVertical:15,
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
         color:"black",
         textAlign:"center"
 
-    }
+    },
 })
 
 export default Register

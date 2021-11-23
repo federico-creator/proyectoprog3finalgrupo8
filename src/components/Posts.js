@@ -135,7 +135,7 @@ class Posts extends Component{
         return(
         <View style={styles.container}>
             {data.photo == ""?<Text></Text>:<Image style={styles.imagen} source={{uri:`${data.photo}`}} resizeMode="contain"/>}
-            <Text>Usuario: {data.user}</Text>
+            <Text>Usuario: {data.userName}</Text>
             <Text>Titulo: {data.title}</Text>
             <Text>Descripcion: {data.description}</Text>
             <Text>Likes: {data.likes.length}</Text>
@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderStyle:"solid",
         borderWidth:1,
-        borderColor:"black"
+        borderColor:"black",
+        backgroundColor: "rgba(176, 136, 135, 0.6)"
     },
     touchable:{
         textAlign:"center",
@@ -244,7 +245,8 @@ const styles = StyleSheet.create({
     imagen:{
         width:"100%",
         height:250,
-        alignContent:"center"
+        alignContent:"center",
+        marginVertical:10,
     },
 })
 
