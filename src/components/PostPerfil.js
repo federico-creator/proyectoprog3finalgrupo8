@@ -224,8 +224,8 @@ class PostsPerfil extends Component{
                     <TouchableOpacity  style={styles.touchable} onPress={()=> this.borrarModal()} >
                         <Text>No, me arrepentí</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity  style={styles.touchable2} onPress={()=> this.eliminarPost(item.id)} >
-                        <Text>Si, desceo borrar el Posteo</Text>
+                    <TouchableOpacity  style={styles.touchable3} onPress={()=> this.eliminarPost(item.id)} >
+                        <Text>Si, deseo borrar el Posteo</Text>
                     </TouchableOpacity>
                 </Modal>
                 :
@@ -242,7 +242,22 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderStyle:"solid",
         borderWidth:1,
-        borderColor:"black"
+        borderColor:"black",
+        backgroundColor: "rgba(176, 136, 135, 0.6)"
+    },
+    touchable3:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "rgba(84, 204, 73, 0.9)",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"rgba(84, 204, 73, 0.9)"
+        
+
     },
     touchable:{
         textAlign:"center",

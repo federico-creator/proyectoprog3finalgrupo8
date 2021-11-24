@@ -33,8 +33,10 @@ class Postear extends Component{
         .then(() => {
             this.setState({
                 title:"",
-                description:""
+                description:"",
+                url:""
             })
+            this.props.screenprops.navigation.navigate("Home")
         })
         .catch((err)=>console.log(err))
     }
@@ -54,7 +56,7 @@ class Postear extends Component{
 
     render(){
         return(
-        < >
+        < View style={styles.container}>
                 <TextInput style={styles.input}
                     keyboardType="default"
                     placeholder="Título"
@@ -119,11 +121,17 @@ class Postear extends Component{
 
 
             
-        </>)
+        </View>)
     }
    
 }
 const styles = StyleSheet.create({
+    container: {
+        marginTop:20,
+        paddingHorizontal: 10,
+        backgroundColor:"rgba(0, 0, 0, 0.6)",
+        height:"100%",
+    },
     input: {
         height: 20,
         borderWidth:1,

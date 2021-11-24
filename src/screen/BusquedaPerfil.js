@@ -24,7 +24,9 @@ class BusquedaPerfil extends Component{
                     })
                 })
                 this.setState({
-                    post: posts
+                    post: posts,
+                    perfil:"",
+                    buscado: true
                 })
             }))  
         
@@ -43,6 +45,7 @@ class BusquedaPerfil extends Component{
                 keyboardType="email-address"
                 placeholder="Email"
                 onChangeText={text => this.setState({perfil:text})}
+                value={this.state.perfil}
             />
         
 
@@ -68,6 +71,53 @@ class BusquedaPerfil extends Component{
    
 }
 const styles = StyleSheet.create({
+    input: {
+        height: 20,
+        borderWidth:1,
+        borderStyle:"solid",
+        borderColor: "#ccc",
+        borderRadius:6,
+        paddingHorizontal:10,
+        paddingVertical:15,
+        marginVertical:10,
+    },
+    touchable2:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "rgba(84, 78, 73, 0.9)",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"rgba(84, 78, 73, 0.9)"
+        
+
+    },
+    touchable:{
+        textAlign:"center",
+        padding: 5,
+        backgroundColor: "rgba(84, 204, 73, 0.9)",
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"rgba(84, 204, 73, 0.9)"
+        
+
+    },
+    texto:{
+        color:"#FFF"
+    },
+    container: {
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"black",
+        backgroundColor: "rgba(176, 136, 135, 0.6)"
+    },
 })
 
 export default BusquedaPerfil

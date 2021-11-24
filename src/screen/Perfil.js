@@ -33,7 +33,7 @@ class Perfil extends Component{
 
     render(){
         return(
-        < >
+        <View style={styles.container}>
             <Text > Bienvenido: {auth.currentUser.email} conocido como: {auth.currentUser.displayName} </Text>
             <Text > Fecha de creación: {auth.currentUser.metadata.creationTime} </Text>
             <Text > Fecha de último loguin: {auth.currentUser.metadata.lastSignInTime} </Text>
@@ -50,7 +50,7 @@ class Perfil extends Component{
 
 
             
-        </>)
+        </View>)
     }
    
 }
@@ -71,6 +71,12 @@ const styles = StyleSheet.create({
     },
     texto:{
         color:"#FFF"
+    },
+    container: {
+        marginTop:20,
+        paddingHorizontal: 10,
+        backgroundColor:"rgba(0, 0, 0, 0.6)",
+        height:"100%",
     },
 })
 

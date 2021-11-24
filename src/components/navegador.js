@@ -89,7 +89,7 @@ class Navegador extends Component{
                         </Drawer.Navigator>:
                         <Drawer.Navigator>
                             <Drawer.Screen name="Home" component={(screenprops)=> <Home screenprops={screenprops}/>} />
-                            <Drawer.Screen name="Postear"  component={()=> <Postear />} options={{tabBarIcon: () => (<FontAwesomeIcon icon={ faPlus } style={styles.iconos}/>)}}/>
+                            <Drawer.Screen name="Postear"  component={(screenprops)=> <Postear screenprops={screenprops} />}/>
                             <Drawer.Screen name="Busqueda" component={()=> <BusquedaPerfil/>} />
                             <Drawer.Screen name="Perfil" component={()=> <Perfil desloguearse={()=>this.desloguearse()} />} />
                         </Drawer.Navigator>                                          
