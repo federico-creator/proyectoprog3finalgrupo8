@@ -8,10 +8,8 @@ import Register from '../screen/Register';
 import Login from '../screen/Login';
 import Perfil from '../screen/Perfil';
 import BusquedaPerfil from '../screen/BusquedaPerfil';
-import {auth} from "../firebase/config"
+import {auth,db} from "../firebase/config"
 import Postear from '../screen/Postear';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 class Navegador extends Component{
@@ -50,6 +48,13 @@ class Navegador extends Component{
     }
 
     register(email, pass, username){
+        db.collection("usuarios").add({
+            user: email,
+            userName: username,
+            createdAt: Date.now(),
+        })
+        .then(() => {
+        console.log("cargando usuario");
         auth.createUserWithEmailAndPassword(email,pass)
         .then(()=> {return (this.setState({
             logueado: true,
@@ -57,7 +62,7 @@ class Navegador extends Component{
         )})
         .then(()=>{ return(
             this.actualizarusuario(username)
-        )})
+        )})})
         .catch((error)=> this.setState({errores: error.message})) 
 
     }

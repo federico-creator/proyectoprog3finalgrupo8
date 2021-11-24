@@ -10,12 +10,37 @@ class BusquedaPerfil extends Component{
             perfil:"",
             post: [],
             buscado: false,
+            perfilbuscado: false,
+            usuarios:[]
         }
     }
 
-    showPost(){
+    busqueda(){
+        (db.collection("usuarios").onSnapshot((docs)=>{
+            let user = []
+            docs.forEach((doc)=>{
+                user.push({
+                    id: doc.id,
+                    data: doc.data()
+                })
+            })
+            let usuariosfiltrados = user.filter((usuario) => usuario.data.user.toLowerCase().includes(this.state.perfil.toLowerCase()))
+                this.setState({
+                    usuarios: usuariosfiltrados
+                }) 
+
+            this.setState({
+                perfil:"",
+                perfilbuscado: true,
+            })
+        })) 
+
+
+    }
+
+    showPost(perfil){
         
-            (db.collection("posts").where("user", "==", this.state.perfil).onSnapshot((docs)=>{
+            (db.collection("posts").where("user", "==", perfil).onSnapshot((docs)=>{
                 let posts = []
                 docs.forEach((doc)=>{
                     posts.push({
@@ -25,8 +50,9 @@ class BusquedaPerfil extends Component{
                 })
                 this.setState({
                     post: posts,
-                    perfil:"",
-                    buscado: true
+                    perfilbuscado: false,
+                    buscado: true,
+                    usuarios:[]
                 })
             }))  
         
@@ -53,16 +79,24 @@ class BusquedaPerfil extends Component{
                 <TouchableOpacity style={styles.touchable2}>
                     <Text style={styles.texto}>Buscar Post</Text>
                 </TouchableOpacity>:
-                <TouchableOpacity style={styles.touchable} onPress={()=> this.showPost()}>
+                <TouchableOpacity style={styles.touchable} onPress={()=> this.busqueda()}>
                     <Text style={styles.texto}>Buscar Post</Text>
                 </TouchableOpacity>
             }
+            <FlatList  
+                    data={this.state.usuarios}
+                    keyExtractor={(data)=> data.id}
+                    renderItem={(item)=>( <TouchableOpacity onPress={()=> this.showPost(item.item.data.user)}>
+                                            <Text style={styles.texto}>{item.item.data.user}</Text>
+                                        </TouchableOpacity>  )}  >
+            </FlatList>
             <FlatList  
                     data={this.state.post}
                     keyExtractor={(data)=> data.id}
                     renderItem={(item)=>( <Posts data={item}/> )}  >
             </FlatList>
-            {this.state.buscado==true && this.state.post.length==0? <Text>No existen publicaciones</Text>:<Text></Text>}
+            {this.state.perfilbuscado==true && this.state.usuarios.length==0? <Text>No se encuentran usuarios</Text>:<Text></Text>}
+            {this.state.buscado==true && this.state.post.length==0? <Text>No existen publicaciones de este usuario</Text>:<Text></Text>}
             </View>
 
             
