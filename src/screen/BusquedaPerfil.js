@@ -26,13 +26,10 @@ class BusquedaPerfil extends Component{
             })
             let usuariosfiltrados = user.filter((usuario) => usuario.data.user.toLowerCase().includes(this.state.perfil.toLowerCase()))
                 this.setState({
-                    usuarios: usuariosfiltrados
+                    usuarios: usuariosfiltrados,
+                    perfil:"",
+                    perfilbuscado: true,
                 }) 
-
-            this.setState({
-                perfil:"",
-                perfilbuscado: true,
-            })
         })) 
 
 
@@ -69,7 +66,7 @@ class BusquedaPerfil extends Component{
 
             <TextInput style={styles.input}
                 keyboardType="email-address"
-                placeholder="Email"
+                placeholder="Buscar perfil"
                 onChangeText={text => this.setState({perfil:text})}
                 value={this.state.perfil}
             />
@@ -77,10 +74,10 @@ class BusquedaPerfil extends Component{
 
             {this.state.perfil.length==0?
                 <TouchableOpacity style={styles.touchable2}>
-                    <Text style={styles.texto}>Buscar Post</Text>
+                    <Text style={styles.texto}>Buscar Perfil</Text>
                 </TouchableOpacity>:
                 <TouchableOpacity style={styles.touchable} onPress={()=> this.busqueda()}>
-                    <Text style={styles.texto}>Buscar Post</Text>
+                    <Text style={styles.texto}>Buscar Perfil</Text>
                 </TouchableOpacity>
             }
             <FlatList  

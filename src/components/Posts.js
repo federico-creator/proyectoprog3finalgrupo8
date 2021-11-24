@@ -57,7 +57,6 @@ class Posts extends Component{
                 this.setState({
                     liked: true
                 })
-                console.log("likeado");
             })
             .catch((error) => {
         
@@ -73,7 +72,6 @@ class Posts extends Component{
                 this.setState({
                     liked: false
                 })
-                console.log("deslikeado");
             })
             .catch((error) => {
         
@@ -130,7 +128,6 @@ class Posts extends Component{
     }
 
     render(){
-        console.log(this.props.data)
         let {item} = this.props.data
         let {data} = item
         return(

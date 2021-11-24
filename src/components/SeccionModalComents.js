@@ -24,7 +24,6 @@ class SeccionModalComents extends Component{
         comentariosAscendentes.map((comentario)=>(
             comentariosOrdenados= comentariosOrdenados.concat(this.props.data.comments.filter((comentarios) => comentarios.fechaDeCreacion.toString().includes(comentario.toString()) ))
           ))
-        console.log(comentariosOrdenados)
       this.setState({
           comentarios:comentariosOrdenados
       })
@@ -40,7 +39,6 @@ class SeccionModalComents extends Component{
 
 
     render(){
-        console.log(this.state.comentarios)
         if(this.state.numeros == this.props.data.comments.length){
         }
         else{
@@ -54,7 +52,7 @@ class SeccionModalComents extends Component{
                 visible={this.props.ShowModal}
                 animationType="none"
                 transparent={false}>
-                    {this.state.comentarios.length== 0? <Text>no existen comentarios, empeza a escribirlos</Text>:
+                    {this.state.comentarios.length== 0? <Text>no existen comentarios, empeza a escribirlos</Text>: /* this.state.comentarios seria this.props.data.comentarios */
                         <FlatList  data={this.state.comentarios}
                         keyExtractor= {(data)=> data.fechaDeCreacion.toString()}
                         renderItem={({item})=> <Text> {item.usuario} escribio: {item.texto} </Text>}  /> 

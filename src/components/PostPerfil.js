@@ -58,7 +58,7 @@ class PostsPerfil extends Component{
                 this.setState({
                     liked: true
                 })
-                console.log("likeado");
+                
             })
             .catch((error) => {
         
@@ -74,7 +74,7 @@ class PostsPerfil extends Component{
                 this.setState({
                     liked: false
                 })
-                console.log("deslikeado");
+                
             })
             .catch((error) => {
         
@@ -85,7 +85,6 @@ class PostsPerfil extends Component{
     }
 
     comentario(coment){
-        console.log(coment)
          let cometariousuario= {texto: coment,
                                 usuario: auth.currentUser.email,
                                 fechaDeCreacion: Date.now()}
@@ -133,7 +132,7 @@ class PostsPerfil extends Component{
     eliminarPost(id){
         db.collection("posts").doc(id).delete()
         .then(() => {
-            console.log("Document successfully deleted!");
+
         }).catch((error) => {
             console.error("Error removing document: ", error);
         });

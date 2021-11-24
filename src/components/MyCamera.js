@@ -35,7 +35,6 @@ class MyCamera extends Component{
     takePicture(){
         this.camera.takePictureAsync()
         .then((photo)=>{
-            console.log(photo)
             this.setState({
                 photo:photo.uri,
             })
