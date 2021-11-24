@@ -10,7 +10,7 @@ class Home extends Component{
     constructor(){
         super()
         this.state={
-            post : []
+            post : [],
             
         }
     }

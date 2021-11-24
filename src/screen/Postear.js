@@ -13,6 +13,7 @@ class Postear extends Component{
             description:"",
             camera: false,
             url:"",
+            estilo: null
 
         }
     }
@@ -26,7 +27,8 @@ class Postear extends Component{
             description: this.state.description ,
             likes: [],
             comments: [],
-            photo: this.state.url
+            photo: this.state.url,
+            estiloPhoto: this.state.estilo
         })
         .then(() => {
             this.setState({
@@ -67,9 +69,42 @@ class Postear extends Component{
                     multiline={true}
                 />
 
-                <TouchableOpacity style={styles.touchable2}   onPress={()=> this.habilitarCamara()} >
+                {this.state.url==""? <TouchableOpacity style={styles.touchable2}   onPress={()=> this.habilitarCamara()} >
                     <Text style={styles.texto2}>Agregar una foto al posteo</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>:<>
+                        {this.state.estilo== null?<Image 
+                            style={styles.imagenbasica}
+                            source={{uri: this.state.url}}
+                            resizeMode="contain"
+                        />:<>{this.state.estilo== "ByN"?<Image 
+                            style={styles.imagenbyn}
+                            source={{uri: this.state.url}}
+                            resizeMode="contain"
+                        />:<>{this.state.estilo== "Sepia"?<Image 
+                        style={styles.imagenSepia}
+                        source={{uri: this.state.url}}
+                        resizeMode="contain"
+                        />:<><Image 
+                        style={styles.imagenInvertida}
+                        source={{uri: this.state.url}}
+                        resizeMode="contain"
+                        /></>}</>}</>}
+
+                        <Text> Agregale estilo a la imagen</Text>
+                        <View>
+                            <TouchableOpacity  onPress={()=>(this.setState({estilo: "ByN"}))}  >
+                                <Text>Blanco y negro</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity   onPress={()=>(this.setState({estilo: "Sepia"}))}>
+                                <Text>Sepia</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity   onPress={()=>(this.setState({estilo: "Saturado"}))} >
+                                <Text>Saturar</Text>
+                            </TouchableOpacity>
+                                                             
+                        </View>
+                        </>}
+               
 
                 {this.state.camera? <MyCamera onImageUpload={(url)=> this.onImageUpload(url)}/>:<Text></Text>}
 
@@ -147,6 +182,33 @@ const styles = StyleSheet.create({
     texto2:{
         color:"black"
     },
+    imagenbasica:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+    },
+    imagenbyn:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "grayscale()"
+    },
+    imagenSepia:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "sepia()"
+    },
+    imagenInvertida:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "saturate(3)"
+    }
 })
 
 export default Postear

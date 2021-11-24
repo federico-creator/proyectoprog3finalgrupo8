@@ -22,6 +22,7 @@ class PostsPerfil extends Component{
             comentModal: false,
             likeModal: false,
             borrarModal: false,
+            estilo: this.props.data.item.data.estiloPhoto
             
 
         }
@@ -157,8 +158,25 @@ class PostsPerfil extends Component{
         let {data} = item
         return(
         <View style={styles.container}>
-            {data.photo == ""?<Text></Text>:<Image style={styles.imagen} source={{uri:`${data.photo}`}} resizeMode="contain"/>}
-            <Text>Usuario: {data.user}</Text>
+            {data.photo == ""?<Text></Text>:<>
+                        {this.state.estilo== null?<Image 
+                            style={styles.imagenbasica}
+                            source={{uri: data.photo}}
+                            resizeMode="contain"
+                        />:<>{this.state.estilo== "ByN"?<Image 
+                            style={styles.imagenbyn}
+                            source={{uri: data.photo}}
+                            resizeMode="contain"
+                        />:<>{this.state.estilo== "Sepia"?<Image 
+                        style={styles.imagenSepia}
+                        source={{uri: data.photo}}
+                        resizeMode="contain"
+                        />:<><Image 
+                        style={styles.imagenInvertida}
+                        source={{uri: data.photo}}
+                        resizeMode="contain"
+                        /></>}</>}</>}</>}
+            <Text>Usuario: {data.user} tambíen conocido como: {data.userName}</Text>
             <Text>Titulo: {data.title}</Text>
             <Text>Descripcion: {data.description}</Text>
             <Text>Likes: {data.likes.length}</Text>
@@ -289,10 +307,32 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         flexDirection:"row"
     },
-    imagen:{
+    imagenbasica:{
         width:"100%",
-        height:250,
-        alignContent:"center"
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+    },
+    imagenbyn:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "grayscale()"
+    },
+    imagenSepia:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "sepia()"
+    },
+    imagenInvertida:{
+        width:"100%",
+        height:300,
+        alignContent:"center",
+        marginVertical:10,
+        filter: "saturate(3)"
     },
     modal:{
         width:"100%",
