@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput, Modal } from 'react-native';
+import { StyleSheet,Text, View, TouchableOpacity, Image,  Modal } from 'react-native';
 import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import "firebase/firestore"

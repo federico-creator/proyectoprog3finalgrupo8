@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { storage} from "../firebase/config"
 import {Camera} from "expo-camera"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'

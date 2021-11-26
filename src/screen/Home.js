@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,Text, View, TouchableOpacity, Image, FlatList, ActivityIndicator, TextInput } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +12,7 @@ class Home extends Component{
         super()
         this.state={
             post : [],
+            cargado: false
             
         }
     }
@@ -31,7 +32,8 @@ class Home extends Component{
                 })
             })
             this.setState({
-                post: posts
+                post: posts,
+                cargado:true
             })
         })
     }
@@ -45,22 +47,25 @@ class Home extends Component{
 
     render(){
         return(
-        
-            <View style={styles.container}>
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity  onPress={()=> this.Posteo()} style={styles.centrar}>
-                        <FontAwesomeIcon icon={ faPlus } />
-                    </TouchableOpacity>
-                    <TouchableOpacity  onPress={()=> this.Busqueda()} style={styles.centrar}>
-                        <FontAwesomeIcon icon={ faSearch } />
-                    </TouchableOpacity>
-                </View>
-                <FlatList  
-                    data={this.state.post}
-                    keyExtractor={(data)=> data.id}
-                    renderItem={(item)=>( <Posts data={item}/> )}  >
-                </FlatList>
-            </View>
+            <>
+                { this.state.cargado == false?<ActivityIndicator size="large" color="black" />:
+            
+                <View style={styles.container}>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity  onPress={()=> this.Posteo()} style={styles.centrar}>
+                            <FontAwesomeIcon icon={ faPlus } />
+                        </TouchableOpacity>
+                        <TouchableOpacity  onPress={()=> this.Busqueda()} style={styles.centrar}>
+                            <FontAwesomeIcon icon={ faSearch } />
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList  
+                        data={this.state.post}
+                        keyExtractor={(data)=> data.id}
+                        renderItem={(item)=>( <Posts data={item}/> )}  >
+                    </FlatList>
+                </View>}
+            </>
 
         )
     }

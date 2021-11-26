@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,Text, View, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { StyleSheet,Text, View, FlatList, Modal } from 'react-native';
 
 
 
